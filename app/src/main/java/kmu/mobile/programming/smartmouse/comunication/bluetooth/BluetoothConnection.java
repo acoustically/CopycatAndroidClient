@@ -4,29 +4,32 @@ import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothManager;
+import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.util.Log;
 import kmu.mobile.programming.smartmouse.MainActivity;
+import kmu.mobile.programming.smartmouse.comunication.Communication;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
+import java.util.UUID;
 
 /**
  * Created by acoustically on 16. 11. 18.
  */
 public class BluetoothConnection {
   private static BluetoothConnection instance;
+  private BluetoothCommunication mCommunication;
   private BluetoothManager mManager;
   private BluetoothAdapter mAdapter;
   private MainActivity mActivity;
-  private boolean isOn = false;
 
-  public static BluetoothConnection getInstance(MainActivity activity) {
+  public static BluetoothConnection getInstance(MainActivity activity
+                                                , BluetoothCommunication communication) {
     if (instance == null) {
-      instance = new BluetoothConnection(activity);
+      instance = new BluetoothConnection(activity, communication);
     }
     return instance;
   }
@@ -48,17 +51,22 @@ public class BluetoothConnection {
     builder.setItems(bluetoothList, new DialogInterface.OnClickListener() {
       @Override
       public void onClick(DialogInterface dialogInterface, int i) {
-        connectBluetooth(bluetoothList[i].toString());
+        try {
+          mCommunication.setSocket(openSocket(bluetoothList[i].toString()));
+        } catch (Exception e) {
+          Log.e("MYLOG", "Socket don't open");
+        }
       }
     });
     AlertDialog dialog = builder.create();
     dialog.show();
   }
 
-  private BluetoothConnection(MainActivity mainActivity) {
+  private BluetoothConnection(MainActivity mainActivity, BluetoothCommunication communication) {
     mActivity = mainActivity;
     mManager = (BluetoothManager)mActivity.getSystemService(Context.BLUETOOTH_SERVICE);
     mAdapter = getAdapter();
+    mCommunication = communication;
   }
 
   private BluetoothAdapter getAdapter() {
@@ -75,15 +83,23 @@ public class BluetoothConnection {
   }
 
   private CharSequence[] getBluetoothList() {
-    Set<BluetoothDevice> devices = mAdapter.getBondedDevices();
     List<String> bluetoothList = new LinkedList<String>();
-    for(BluetoothDevice device : devices) {
+    for(BluetoothDevice device : mAdapter.getBondedDevices()) {
         bluetoothList.add(device.getName());
     }
     return bluetoothList.toArray(new CharSequence[bluetoothList.size()]);
   }
+  BluetoothDevice getDevice(String name) {
+    for(BluetoothDevice device : mAdapter.getBondedDevices()) {
+      if(name.equals(device.getName())) {
+        return device;
+      }
+    }
+    return null;
+  }
 
-  private void connectBluetooth(String bluetoothDevice) {
-
+  public BluetoothSocket openSocket(String bluetoothDevice) throws Exception{
+    UUID uuid = UUID.fromString("00001101-0000-1000-8000-00805f9b34fb");
+    return getDevice(bluetoothDevice).createRfcommSocketToServiceRecord(uuid);
   }
 }

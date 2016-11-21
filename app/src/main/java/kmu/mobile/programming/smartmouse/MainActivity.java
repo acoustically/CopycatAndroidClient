@@ -6,18 +6,22 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import kmu.mobile.programming.smartmouse.comunication.Communication;
+import kmu.mobile.programming.smartmouse.comunication.bluetooth.BluetoothCommunication;
 import kmu.mobile.programming.smartmouse.comunication.bluetooth.BluetoothConnection;
 
 public class MainActivity extends AppCompatActivity {
   public static int BLUETOOTH_ON = 0001;
   private BluetoothConnection mBluetoothConnect;
+  private BluetoothCommunication mBluetoothCommunication;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
     getPermission();
-    mBluetoothConnect = BluetoothConnection.getInstance(this);
+    mBluetoothCommunication = new BluetoothCommunication();
+    mBluetoothConnect = BluetoothConnection.getInstance(this, mBluetoothCommunication);
   }
 
   @Override
