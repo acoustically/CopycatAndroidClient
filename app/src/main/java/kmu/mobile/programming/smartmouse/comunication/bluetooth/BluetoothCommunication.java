@@ -1,6 +1,7 @@
 package kmu.mobile.programming.smartmouse.comunication.bluetooth;
 
 import android.bluetooth.BluetoothSocket;
+import android.util.Log;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -15,7 +16,13 @@ public class BluetoothCommunication {
 
   public void setSocket(BluetoothSocket socket) throws Exception{
     mSocket = socket;
+    mSocket.connect();
     writer = new BufferedOutputStream(mSocket.getOutputStream());
     reader = new BufferedInputStream(mSocket.getInputStream());
+    Log.d("MYLOG", "socket openned");
+  }
+
+  public void closeSocket() {
+
   }
 }
