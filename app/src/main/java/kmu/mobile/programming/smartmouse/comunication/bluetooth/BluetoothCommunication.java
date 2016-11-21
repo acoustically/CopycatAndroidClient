@@ -16,13 +16,17 @@ public class BluetoothCommunication {
 
   public void setSocket(BluetoothSocket socket) throws Exception{
     mSocket = socket;
+    openSocket();
+  }
+  private void openSocket() throws Exception{
     mSocket.connect();
     writer = new BufferedOutputStream(mSocket.getOutputStream());
     reader = new BufferedInputStream(mSocket.getInputStream());
     Log.d("MYLOG", "socket openned");
   }
-
-  public void closeSocket() {
-
+  public void closeSocket() throws Exception{
+    mSocket.close();
+    writer.close();
+    reader.close();
   }
 }

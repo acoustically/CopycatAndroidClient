@@ -5,8 +5,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
-import kmu.mobile.programming.smartmouse.comunication.Communication;
 import kmu.mobile.programming.smartmouse.comunication.bluetooth.BluetoothCommunication;
 import kmu.mobile.programming.smartmouse.comunication.bluetooth.BluetoothConnection;
 
@@ -40,5 +40,15 @@ public class MainActivity extends AppCompatActivity {
     if (view.getId() == R.id.CONNECT) {
       mBluetoothConnect.selectBluetooth();
     }
+  }
+
+  @Override
+  protected void onDestroy() {
+    try {
+      mBluetoothCommunication.closeSocket();
+    } catch (Exception e) {
+      Log.e("MYLOG", "Bluetooth not close");
+    }
+    super.onDestroy();
   }
 }

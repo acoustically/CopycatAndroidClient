@@ -10,7 +10,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.util.Log;
 import kmu.mobile.programming.smartmouse.MainActivity;
-import kmu.mobile.programming.smartmouse.comunication.Communication;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -20,6 +19,7 @@ import java.util.UUID;
  * Created by acoustically on 16. 11. 18.
  */
 public class BluetoothConnection {
+  final static UUID SERIAL_PORT_SERVICE_UUID = UUID.fromString("00001101-0000-1000-8000-00805f9b34fb");
   private static BluetoothConnection instance;
   private BluetoothCommunication mCommunication;
   private BluetoothManager mManager;
@@ -52,7 +52,7 @@ public class BluetoothConnection {
       @Override
       public void onClick(DialogInterface dialogInterface, int i) {
         try {
-          mCommunication.setSocket(openSocket(bluetoothList[i].toString()));
+          mCommunication.setSocket(getSocket(bluetoothList[i].toString()));
         } catch (Exception e) {
           Log.e("MYLOG", "Socket don't open");
         }
@@ -98,8 +98,8 @@ public class BluetoothConnection {
     return null;
   }
 
-  public BluetoothSocket openSocket(String bluetoothDevice) throws Exception{
-    UUID uuid = UUID.fromString("00001101-0000-1000-8000-00805f9b34fb");
-    return getDevice(bluetoothDevice).createRfcommSocketToServiceRecord(uuid);
+  public BluetoothSocket getSocket(String bluetoothDevice) throws Exception{
+    Log.e("MYLOG", getDevice(bluetoothDevice).getName() + " " + getDevice(bluetoothDevice).getAddress());
+    return getDevice(bluetoothDevice).createRfcommSocketToServiceRecord(SERIAL_PORT_SERVICE_UUID);
   }
 }
