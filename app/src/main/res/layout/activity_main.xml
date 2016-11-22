@@ -11,9 +11,10 @@
   tools:context="kmu.mobile.programming.smartmouse.MainActivity">
 
   <Button
+    android:layout_centerInParent="true"
     android:onClick="onClick"
     android:id="@+id/CONNECT"
-    android:text="connect"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content" />
+    android:text="블루투스 연결"
+    android:layout_width="200dp"
+    android:layout_height="200dp" />
 </RelativeLayout>
