@@ -20,8 +20,8 @@ public class BluetoothCommunication {
   }
   private void openSocket() throws Exception{
     mSocket.connect();
-    writer = new BufferedOutputStream(mSocket.getOutputStream());
-    reader = new BufferedInputStream(mSocket.getInputStream());
+/*    writer = new BufferedOutputStream(mSocket.getOutputStream());
+    reader = new BufferedInputStream(mSocket.getInputStream());*/
     Log.d("MYLOG", "socket openned");
   }
   public void closeSocket() throws Exception{

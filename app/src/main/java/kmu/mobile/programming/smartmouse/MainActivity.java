@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     setContentView(R.layout.activity_main);
     getPermission();
     mBluetoothCommunication = new BluetoothCommunication();
-    mBluetoothConnect = BluetoothConnection.getInstance(this, mBluetoothCommunication);
+    mBluetoothConnect = new BluetoothConnection(this, mBluetoothCommunication);
   }
 
   @Override
