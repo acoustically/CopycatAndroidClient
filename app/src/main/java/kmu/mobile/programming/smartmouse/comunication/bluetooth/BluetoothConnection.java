@@ -40,6 +40,7 @@ public class BluetoothConnection {
     mAdapter = BluetoothAdapter.getDefaultAdapter();
     mCommunication = communication;
     mActivity.registerReceiver(mBroadcastReceiver, new IntentFilter( BluetoothDevice.ACTION_FOUND ));
+    setDiscoverable();
   }
 
   public void resultBluetoothOn(int requestCode, int resultCode) {
@@ -110,5 +111,15 @@ public class BluetoothConnection {
   public BluetoothSocket getSocket(BluetoothDevice device) throws Exception{
     Log.e("MYLOG", device.getName() + " " + device.getAddress());
     return device.createRfcommSocketToServiceRecord(SERIAL_PORT_SERVICE_UUID);
+  }
+  public void unRegistReceiver() {
+    mActivity.unregisterReceiver(mBroadcastReceiver);
+  }
+  public void setDiscoverable() {
+    if( mAdapter.getScanMode() == BluetoothAdapter.SCAN_MODE_CONNECTABLE_DISCOVERABLE )
+      return;
+    Intent intent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
+    intent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 0);
+    mActivity.startActivity(intent);
   }
 }

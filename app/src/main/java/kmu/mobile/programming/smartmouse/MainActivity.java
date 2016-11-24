@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     } catch (Exception e) {
       Log.e("MYLOG", "Bluetooth not close");
     }
+    mBluetoothConnect.unRegistReceiver();
     super.onDestroy();
   }
 }

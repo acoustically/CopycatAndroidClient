@@ -11,15 +11,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="24baea97-5feb-48e0-9979-1750c6c77bc8" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/codeStyleSettings.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/kmu/mobile/programming/smartmouse/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/kmu/mobile/programming/smartmouse/MainActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/kmu/mobile/programming/smartmouse/comunication/bluetooth/BluetoothCommunication.java" afterPath="$PROJECT_DIR$/app/src/main/java/kmu/mobile/programming/smartmouse/comunication/bluetooth/BluetoothCommunication.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/kmu/mobile/programming/smartmouse/comunication/bluetooth/BluetoothConnection.java" afterPath="$PROJECT_DIR$/app/src/main/java/kmu/mobile/programming/smartmouse/comunication/bluetooth/BluetoothConnection.java" />
     </list>
     <ignored path="MobileProgramming_TermProject.iws" />
@@ -49,8 +42,8 @@
       <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/kmu/mobile/programming/smartmouse/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="364">
-              <caret line="46" column="9" selection-start-line="46" selection-start-column="9" selection-end-line="46" selection-end-column="9" />
+            <state relative-caret-position="780">
+              <caret line="53" column="3" selection-start-line="53" selection-start-column="3" selection-end-line="53" selection-end-column="3" />
               <folding />
             </state>
           </provider>
@@ -89,8 +82,8 @@
       <file leaf-file-name="BluetoothCommunication.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/kmu/mobile/programming/smartmouse/comunication/bluetooth/BluetoothCommunication.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-150">
-              <caret line="10" column="3" selection-start-line="10" selection-start-column="3" selection-end-line="10" selection-end-column="3" />
+            <state relative-caret-position="370">
+              <caret line="30" column="3" selection-start-line="30" selection-start-column="3" selection-end-line="30" selection-end-column="3" />
               <folding />
             </state>
           </provider>
@@ -109,16 +102,18 @@
       <file leaf-file-name="BluetoothConnection.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/kmu/mobile/programming/smartmouse/comunication/bluetooth/BluetoothConnection.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="396">
-              <caret line="113" column="1" selection-start-line="113" selection-start-column="1" selection-end-line="113" selection-end-column="1" />
+            <state relative-caret-position="422">
+              <caret line="122" column="36" selection-start-line="122" selection-start-column="36" selection-end-line="122" selection-end-column="36" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#729#737#0" expanded="true" />
                 <element signature="e#802#810#0" expanded="true" />
                 <element signature="e#863#1334#0" expanded="true" />
                 <element signature="e#1333#1334#0" expanded="true" />
-                <element signature="e#2393#2750#0" expanded="true" />
-                <element signature="e#2749#2750#0" expanded="true" />
+                <element signature="e#2416#2773#0" expanded="true" />
+                <element signature="e#2772#2773#0" expanded="true" />
+                <element signature="e#4122#4123#0" expanded="true" />
+                <element signature="e#4180#4181#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -1813,9 +1808,9 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/java/kmu/mobile/programming/smartmouse/MainActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/kmu/mobile/programming/smartmouse/comunication/bluetooth/BluetoothCommunication.java" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/kmu/mobile/programming/smartmouse/comunication/bluetooth/BluetoothCommunication.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/kmu/mobile/programming/smartmouse/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/kmu/mobile/programming/smartmouse/comunication/bluetooth/BluetoothConnection.java" />
       </list>
     </option>
@@ -2676,16 +2671,16 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1479997034912</updated>
-      <workItem from="1479997117353" duration="8889000" />
+      <workItem from="1479997117353" duration="10062000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="8889000" />
+    <option name="totallyTimeSpent" value="10062000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="30" width="1920" height="1050" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -2789,32 +2784,34 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/kmu/mobile/programming/smartmouse/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="364">
-          <caret line="46" column="9" selection-start-line="46" selection-start-column="9" selection-end-line="46" selection-end-column="9" />
+        <state relative-caret-position="780">
+          <caret line="53" column="3" selection-start-line="53" selection-start-column="3" selection-end-line="53" selection-end-column="3" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/kmu/mobile/programming/smartmouse/comunication/bluetooth/BluetoothCommunication.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-150">
-          <caret line="10" column="3" selection-start-line="10" selection-start-column="3" selection-end-line="10" selection-end-column="3" />
+        <state relative-caret-position="370">
+          <caret line="30" column="3" selection-start-line="30" selection-start-column="3" selection-end-line="30" selection-end-column="3" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/kmu/mobile/programming/smartmouse/comunication/bluetooth/BluetoothConnection.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="113" column="1" selection-start-line="113" selection-start-column="1" selection-end-line="113" selection-end-column="1" />
+        <state relative-caret-position="422">
+          <caret line="122" column="36" selection-start-line="122" selection-start-column="36" selection-end-line="122" selection-end-column="36" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#729#737#0" expanded="true" />
             <element signature="e#802#810#0" expanded="true" />
             <element signature="e#863#1334#0" expanded="true" />
             <element signature="e#1333#1334#0" expanded="true" />
-            <element signature="e#2393#2750#0" expanded="true" />
-            <element signature="e#2749#2750#0" expanded="true" />
+            <element signature="e#2416#2773#0" expanded="true" />
+            <element signature="e#2772#2773#0" expanded="true" />
+            <element signature="e#4122#4123#0" expanded="true" />
+            <element signature="e#4180#4181#0" expanded="true" />
           </folding>
         </state>
       </provider>
