@@ -5,28 +5,49 @@ import android.util.Log;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by acoustically on 16. 11. 20.
  */
-public class BluetoothCommunication {
+public class BluetoothCommunication extends Thread{
   private BluetoothSocket mSocket;
-  private BufferedOutputStream writer;
-  private BufferedInputStream reader;
-
-  public void setSocket(BluetoothSocket socket) throws Exception{
+  private BufferedOutputStream mWriter;
+  private BufferedInputStream mReader;
+  private List<ListenerInterface> mListener = new LinkedList<>();
+  public void setSocket(BluetoothSocket socket) {
     mSocket = socket;
-    openSocket();
   }
-  private void openSocket() throws Exception{
-    mSocket.connect();
-/*    writer = new BufferedOutputStream(mSocket.getOutputStream());
-    reader = new BufferedInputStream(mSocket.getInputStream());*/
-    Log.d("MYLOG", "socket openned");
+  @Override
+  public void run() {
+    try {
+      mSocket.connect();
+      mWriter = new BufferedOutputStream(mSocket.getOutputStream());
+      mReader = new BufferedInputStream(mSocket.getInputStream());
+      Log.e("MYLOG", "socket is openned");
+      noti();
+      //Toast.makeText(mActivity, "Socket is openned", Toast.LENGTH_SHORT).show();
+    } catch(Exception e) {
+      Log.e("MYLOG", "Socket is not open");
+      //Toast.makeText(mActivity, "Socket is not opened", Toast.LENGTH_SHORT).show();
+    }
   }
+  public void addListener(ListenerInterface listener) {
+    mListener.add(listener);
+  }
+
   public void closeSocket() throws Exception{
     mSocket.close();
-    writer.close();
-    reader.close();
+    mWriter.close();
+    mReader.close();
+  }
+
+  private void noti() {
+    Iterator<ListenerInterface> iterator = mListener.iterator();
+    while(iterator.hasNext()) {
+      iterator.next().update();
+    }
   }
 }

@@ -15,8 +15,10 @@ import java.util.UUID;
 /**
  * Created by acoustically on 16. 11. 18.
  */
+
 public class BluetoothConnection {
-  final static UUID SERIAL_PORT_SERVICE_UUID = UUID.fromString("0000110a-0000-1000-8000-00805f9b34fb");
+  final static UUID SERIAL_PORT_SERVICE_UUID
+    = UUID.fromString("00001101-0000-1000-8000-00805f9b34fb");
   private BluetoothCommunication mCommunication;
   private BluetoothAdapter mAdapter;
   private MainActivity mActivity;
@@ -28,9 +30,7 @@ public class BluetoothConnection {
       if (intent.getAction() == BluetoothDevice.ACTION_FOUND) {
         BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
         Log.e("MYLOG", "device is searched" + " - " + device.getAddress());
-        if (device.getBondState() != BluetoothDevice.BOND_BONDED) ;{
-          addBluetoothListNonRepeat(device);
-        }
+        addBluetoothListNonRepeat(device);
       }
     }
   };
@@ -58,17 +58,23 @@ public class BluetoothConnection {
     mAdapter.startDiscovery();
     addBluetoothListFromBonded();
     bluetoothOn();
+    ListenerInterface listener = new SocketOpennedListener(mActivity);
+    mCommunication.addListener(listener);
     final CharSequence[] bluetoothList = convertListToCharSequence();
     AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
     builder.setTitle("Bluetooth List");
     builder.setItems(bluetoothList, new DialogInterface.OnClickListener() {
       @Override
       public void onClick(DialogInterface dialogInterface, int i) {
+        Log.e("MYLOG", mAdapter.getRemoteDevice(mBluetoothAddressList.get(i)).getAddress());
+        Log.e("MYLOG", mAdapter.getRemoteDevice(mBluetoothAddressList.get(i)).getName());
+        mAdapter.cancelDiscovery();
         try {
           mCommunication.setSocket(
             getSocket(mAdapter.getRemoteDevice(mBluetoothAddressList.get(i))));
+          mCommunication.start();
         } catch (Exception e) {
-          Log.e("MYLOG", "Socket is not open");
+          Log.e("MYLOG", "has not socket");
         }
       }
     });
@@ -110,7 +116,7 @@ public class BluetoothConnection {
 
   public BluetoothSocket getSocket(BluetoothDevice device) throws Exception{
     Log.e("MYLOG", device.getName() + " " + device.getAddress());
-    return device.createRfcommSocketToServiceRecord(SERIAL_PORT_SERVICE_UUID);
+    return device.createInsecureRfcommSocketToServiceRecord(SERIAL_PORT_SERVICE_UUID);
   }
   public void unRegistReceiver() {
     mActivity.unregisterReceiver(mBroadcastReceiver);
