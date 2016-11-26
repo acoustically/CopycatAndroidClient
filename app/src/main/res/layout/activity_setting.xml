@@ -8,20 +8,22 @@
   android:paddingRight="@dimen/activity_horizontal_margin"
   android:paddingTop="@dimen/activity_vertical_margin"
   android:paddingBottom="@dimen/activity_vertical_margin"
-  tools:context="kmu.mobile.programming.smartmouse.SensitivityControlActivity">
+  tools:context="kmu.mobile.programming.smartmouse.SettingActivity">
   <LinearLayout
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_centerHorizontal="true">
     <Button
-      android:layout_width="150dp"
+      android:layout_weight="150"
+      android:layout_width="0dp"
       android:layout_height="150dp"
-      android:text="왼손 잡이"
+      android:text="left hander"
       android:layout_marginRight="50dp"/>
     <Button
-      android:layout_width="150dp"
+        android:layout_weight="150"
+        android:layout_width="0dp"
       android:layout_height="150dp"
-      android:text="오른손 잡이"/>
+      android:text="right hander"/>
   </LinearLayout>
   <LinearLayout
     android:layout_width="match_parent"
@@ -37,7 +39,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="마우스 민감도 : "/>
+        android:text="mouse sensitivity : "/>
       <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -52,7 +54,7 @@
     />
   </LinearLayout>
   <Button
-    android:text="저장"
+    android:text="save"
     android:layout_alignParentBottom="true"
     android:layout_centerHorizontal="true"
     android:layout_width="150dp"

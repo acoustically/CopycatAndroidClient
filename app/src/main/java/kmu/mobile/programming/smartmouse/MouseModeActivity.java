@@ -9,7 +9,7 @@ public class MouseModeActivity extends AppCompatActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_mouse_mode);
+    setContentView(R.layout.activity_mouse);
   }
 
   public void onClick(View view) {

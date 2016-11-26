@@ -4,12 +4,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.SeekBar;
 
-public class SensitivityControlActivity extends AppCompatActivity {
+public class SettingActivity extends AppCompatActivity {
   SeekBar mMouseSensitivitySeekBar;
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_sensitivity_control);
+    setContentView(R.layout.activity_setting);
     mMouseSensitivitySeekBar = (SeekBar)findViewById(R.id.SensitivitySeekBar);
     mMouseSensitivitySeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
       @Override

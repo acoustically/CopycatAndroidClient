@@ -6,7 +6,7 @@ import android.os.Message;
 import android.widget.Toast;
 
 import kmu.mobile.programming.smartmouse.MainActivity;
-import kmu.mobile.programming.smartmouse.SelectModeActivity;
+import kmu.mobile.programming.smartmouse.SelectActivity;
 
 /**
  * Created by acoustically on 16. 11. 25.
@@ -19,14 +19,14 @@ public class OnSocketAvailableListener extends Handler{
   }
 
   public void startSelectModeActivity() {
-    Intent intent = new Intent(mActivity, SelectModeActivity.class);
+    Intent intent = new Intent(mActivity, SelectActivity.class);
     mActivity.startActivity(intent);
   }
   public void showToast(boolean isConnect) {
     if(isConnect == true) {
-      Toast.makeText(mActivity, "Socket is openned", Toast.LENGTH_SHORT).show();
+      Toast.makeText(mActivity, "bluetooth is connected", Toast.LENGTH_SHORT).show();
     } else {
-      Toast.makeText(mActivity, "Socket is not opened", Toast.LENGTH_SHORT).show();
+      Toast.makeText(mActivity, "bluetooth is not connecting", Toast.LENGTH_SHORT).show();
     }
   }
 

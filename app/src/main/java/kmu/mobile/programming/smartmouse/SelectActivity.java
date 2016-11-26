@@ -5,20 +5,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-public class SelectModeActivity extends AppCompatActivity {
+public class SelectActivity extends AppCompatActivity {
   Intent intent;
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_select_mode);
+    setContentView(R.layout.activity_select);
   }
 
   public void onClick(View view) {
     if (view.getId() == R.id.EnterSensitivityMode) {
-      intent = new Intent(this, SensitivityControlActivity.class);
+      intent = new Intent(this, SettingActivity.class);
       startActivity(intent);
     } else if (view.getId() == R.id.EnterMouseMode) {
-
+      intent = new Intent(this, MouseModeActivity.class);
+      startActivity(intent);
     }
   }
 }
