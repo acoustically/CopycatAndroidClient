@@ -19,7 +19,7 @@ import java.util.UUID;
 public class BluetoothConnection {
   final static UUID SERIAL_PORT_SERVICE_UUID
     = UUID.fromString("00001101-0000-1000-8000-00805f9b34fb");
-  private BluetoothCommunication mCommunication;
+  private SocketConnect mScoketConnect;
   private BluetoothAdapter mAdapter;
   private MainActivity mActivity;
   private List<String> mBluetoothList = new LinkedList<String>();
@@ -35,10 +35,10 @@ public class BluetoothConnection {
     }
   };
 
-  public BluetoothConnection(MainActivity mainActivity, BluetoothCommunication communication) {
+  public BluetoothConnection(MainActivity mainActivity, SocketConnect communication) {
     mActivity = mainActivity;
     mAdapter = BluetoothAdapter.getDefaultAdapter();
-    mCommunication = communication;
+    mScoketConnect = communication;
     mActivity.registerReceiver(mBroadcastReceiver, new IntentFilter( BluetoothDevice.ACTION_FOUND ));
     setDiscoverable();
   }
@@ -54,12 +54,13 @@ public class BluetoothConnection {
   }
 
   public void selectBluetooth() {
-    mAdapter.cancelDiscovery();
-    mAdapter.startDiscovery();
-    addBluetoothListFromBonded();
     bluetoothOn();
-    ListenerInterface listener = new SocketOpennedListener(mActivity);
-    mCommunication.addListener(listener);
+    startDiscovery();
+
+    mScoketConnect.setSocketAvailableListener(
+            new OnSocketAvailableListener(mActivity));
+    mScoketConnect.setSocketIOStream(SocketIOStream.getInstance());
+
     final CharSequence[] bluetoothList = convertListToCharSequence();
     AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
     builder.setTitle("Bluetooth List");
@@ -70,9 +71,8 @@ public class BluetoothConnection {
         Log.e("MYLOG", mAdapter.getRemoteDevice(mBluetoothAddressList.get(i)).getName());
         mAdapter.cancelDiscovery();
         try {
-          mCommunication.setSocket(
-            getSocket(mAdapter.getRemoteDevice(mBluetoothAddressList.get(i))));
-          mCommunication.start();
+          mScoketConnect.setSocket(getSocket(mAdapter.getRemoteDevice(mBluetoothAddressList.get(i))));
+          mScoketConnect.start();
         } catch (Exception e) {
           Log.e("MYLOG", "has not socket");
         }
@@ -100,6 +100,7 @@ public class BluetoothConnection {
       addBluetoothListNonRepeat(device);
     }
   }
+
   private void addBluetoothListNonRepeat(BluetoothDevice device) {
     Iterator<String> devices = mBluetoothList.iterator();
     int count = 0;
@@ -114,13 +115,21 @@ public class BluetoothConnection {
     }
   }
 
+  private void startDiscovery() {
+    mAdapter.cancelDiscovery();
+    mAdapter.startDiscovery();
+    addBluetoothListFromBonded();
+  }
+
   public BluetoothSocket getSocket(BluetoothDevice device) throws Exception{
     Log.e("MYLOG", device.getName() + " " + device.getAddress());
     return device.createInsecureRfcommSocketToServiceRecord(SERIAL_PORT_SERVICE_UUID);
   }
+
   public void unRegistReceiver() {
     mActivity.unregisterReceiver(mBroadcastReceiver);
   }
+
   public void setDiscoverable() {
     if( mAdapter.getScanMode() == BluetoothAdapter.SCAN_MODE_CONNECTABLE_DISCOVERABLE )
       return;

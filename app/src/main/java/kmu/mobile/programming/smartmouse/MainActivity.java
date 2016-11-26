@@ -7,20 +7,21 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import kmu.mobile.programming.smartmouse.comunication.bluetooth.BluetoothCommunication;
+import kmu.mobile.programming.smartmouse.comunication.bluetooth.SocketConnect;
 import kmu.mobile.programming.smartmouse.comunication.bluetooth.BluetoothConnection;
+import kmu.mobile.programming.smartmouse.comunication.bluetooth.SocketIOStream;
 
 public class MainActivity extends AppCompatActivity {
   public static int BLUETOOTH_ON = 0001;
   private BluetoothConnection mBluetoothConnect;
-  private BluetoothCommunication mBluetoothCommunication;
+  private SocketConnect mBluetoothCommunication;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
     getPermission();
-    mBluetoothCommunication = new BluetoothCommunication();
+    mBluetoothCommunication = new SocketConnect("SocketConnect");
     mBluetoothConnect = new BluetoothConnection(this, mBluetoothCommunication);
   }
 
@@ -45,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
   @Override
   protected void onDestroy() {
     try {
-      mBluetoothCommunication.closeSocket();
+      SocketIOStream.getInstance().CloseSocket();
     } catch (Exception e) {
       Log.e("MYLOG", "Bluetooth not close");
     }
