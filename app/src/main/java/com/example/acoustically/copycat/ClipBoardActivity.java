@@ -1,14 +1,15 @@
 package com.example.acoustically.copycat;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
-import android.widget.TextView;
 
 import com.example.acoustically.copycat.bluetooth.SocketIOStream;
+import com.example.acoustically.copycat.data.Data;
+import com.example.acoustically.copycat.data.StringData;
 
 
 public class ClipBoardActivity extends AppCompatActivity {
@@ -28,7 +29,11 @@ public class ClipBoardActivity extends AppCompatActivity {
       if (countView % 2 == 0) {
         layout = buildLayout();
       }
-      buildTextview(layout);
+      Data data;
+      if (true) {
+        data = new StringData("test", layout, this);
+      }
+      buildView(data);
       /*      try {
         mIOStream.getWriter().writeBoolean(true);
       } catch (Exception e) {
@@ -38,21 +43,21 @@ public class ClipBoardActivity extends AppCompatActivity {
   }
 
   public LinearLayout buildLayout() {
+    final int height = (int) TypedValue.applyDimension(
+      TypedValue.COMPLEX_UNIT_DIP, 150, getResources().getDisplayMetrics());
     LinearLayout linearLayout = new LinearLayout(this);
     linearLayout.setOrientation(LinearLayout.HORIZONTAL);
-    linearLayout.setLayoutParams(
-      new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 150));
-    setContentView((ScrollView) findViewById(R.id.PASTE_CONTENTS));
+    LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+        ViewGroup.LayoutParams.MATCH_PARENT, height);
+    layoutParams.setMargins(10, 10, 10, 10);
+    linearLayout.setLayoutParams(layoutParams);
+    LinearLayout parent = (LinearLayout)findViewById(R.id.PASTE_CONTENTS);
+    parent.addView(linearLayout);
     return linearLayout;
   }
 
-  public void buildTextview(LinearLayout layout) {
+  public void buildView(Data data) {
     countView++;
-    TextView textView = new TextView(this);
-    textView.setLayoutParams(new LinearLayout.LayoutParams(
-      ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-    textView.setText("Afafsasa");
-    layout.addView(textView);
-    setContentView(layout);
+    data.showDataInView();
   }
 }
