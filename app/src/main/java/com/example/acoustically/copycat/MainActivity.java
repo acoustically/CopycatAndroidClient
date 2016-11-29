@@ -20,12 +20,10 @@ public class MainActivity extends AppCompatActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_main);/*
+    setContentView(R.layout.activity_main);
     getPermission();
     mBluetoothCommunication = new SocketConnect("SocketConnect");
-    mBluetoothConnect = new BluetoothConnection(this, mBluetoothCommunication);*/
-    Intent intent = new Intent(this, ClipBoardActivity.class);
-    startActivity(intent);
+    mBluetoothConnect = new BluetoothConnection(this, mBluetoothCommunication);
   }
 
   @Override

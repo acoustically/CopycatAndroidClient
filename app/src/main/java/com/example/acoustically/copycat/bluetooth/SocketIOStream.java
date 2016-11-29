@@ -3,8 +3,10 @@ package com.example.acoustically.copycat.bluetooth;
 import android.bluetooth.BluetoothSocket;
 import android.util.Log;
 
+import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 
 /**
  * Created by acoustically on 16. 11. 26.
@@ -12,8 +14,8 @@ import java.io.ObjectOutputStream;
 public class SocketIOStream{
   private static SocketIOStream instance;
   private BluetoothSocket mSocket;
-  private ObjectOutputStream mWriter;
-  private ObjectInputStream mReader;
+  private OutputStream mWriter;
+  private InputStream mReader;
 
   private SocketIOStream() {}
 
@@ -26,8 +28,8 @@ public class SocketIOStream{
   public void setIoSteam(BluetoothSocket socket) {
     try {
       mSocket = socket;
-      mWriter = new ObjectOutputStream(mSocket.getOutputStream());
-      mReader = new ObjectInputStream(mSocket.getInputStream());
+      mWriter = mSocket.getOutputStream();
+      mReader = mSocket.getInputStream();
     } catch (Exception e) {
       Log.e("MYLOG", "Socket IO Exception is occur");
     }
@@ -38,11 +40,11 @@ public class SocketIOStream{
     mReader.close();
   }
 
-  public ObjectOutputStream getWriter() {
+  public OutputStream getWriter() {
     return mWriter;
   }
 
-  public ObjectInputStream getReader() {
+  public InputStream getReader() {
     return mReader;
   }
 

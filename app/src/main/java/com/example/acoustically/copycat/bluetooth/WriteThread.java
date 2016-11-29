@@ -17,7 +17,8 @@ public class WriteThread extends Thread {
     super.run();
     if (mIOStream.getSocket().isConnected()) {
       try {
-        mIOStream.getWriter().writeInt(1);
+        mIOStream.getWriter().write(10);
+        Log.d("MYLOG", "send data");
       } catch (Exception e) {
         Log.e("MYLOG", "bluetooth write error");
       }

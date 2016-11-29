@@ -31,7 +31,7 @@ public class ClipBoardActivity extends AppCompatActivity {
         if (countView % 2 == 0) {
           layout = buildLayout();
         }
-        Data data = new StringData(readThread.getStringData(), layout, mContext);
+        Data data = new StringData((String)msg.obj, layout, mContext);
         buildView(data);
       } else if (msg.what == ReadThread.BITMAP_DATA) {
 
@@ -45,6 +45,7 @@ public class ClipBoardActivity extends AppCompatActivity {
     setContentView(R.layout.activity_clip_board);
     mIOStream = SocketIOStream.getInstance();
     readThread = new ReadThread(readHandler);
+    readThread.start();
   }
 
   public void onClick(View view) {

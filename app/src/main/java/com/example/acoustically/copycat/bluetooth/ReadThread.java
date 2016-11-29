@@ -15,8 +15,7 @@ public class ReadThread extends Thread {
   public final static int BITMAP_DATA = 0;
   private SocketIOStream mIOStream = SocketIOStream.getInstance();
   private Handler handler;
-  private String stringData;
-
+  private String data;
   public ReadThread(Handler handler) {
     this.handler = handler;
   }
@@ -26,20 +25,20 @@ public class ReadThread extends Thread {
     super.run();
     while(mIOStream.getSocket().isConnected()) {
       try {
-        stringData = (String) mIOStream.getReader().readObject();
-        post(stringData);
+        byte[] readBuffer = new byte[1024];
+        int length = mIOStream.getReader().read(readBuffer);
+        data = new String(readBuffer, 0, length);
+        Log.e("MYLOG", data + "");
+        post();
       } catch (Exception e) {
         Log.e("MYLOG", "bluetooth read error");
       }
     }
   }
-  public void post(String data) {
+  private void post() {
     Message msg = Message.obtain();
     msg.what = STRING_DATA;
+    msg.obj = data;
     handler.sendMessage(msg);
-  }
-
-  public String getStringData() {
-    return stringData;
   }
 }
