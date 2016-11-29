@@ -1,6 +1,9 @@
 package com.example.acoustically.copycat.data;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.media.Image;
 import android.text.Layout;
 import android.util.TypedValue;
 import android.view.View;
@@ -8,7 +11,9 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.acoustically.copycat.ClipBoardActivity;
 import com.example.acoustically.copycat.R;
+import com.example.acoustically.copycat.ShowDataActivity;
 
 /**
  * Created by acoustically on 16. 11. 28.
@@ -41,7 +46,10 @@ public class StringData implements Data{
     mTextView.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-
+        Intent intent = new Intent(mContext, ShowDataActivity.class);
+        intent.putExtra("StringData", mString);
+        intent.putExtra("ImageData", (Bitmap)null);
+        mContext.startActivity(intent);
       }
     });
     mLayout.addView(mTextView);
