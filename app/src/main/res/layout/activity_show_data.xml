@@ -15,8 +15,16 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <Button
+      android:onClick="onClick"
+      android:id="@+id/TextCopyButton"
       android:text="copy"
-      android:layout_width="100dp"
+      android:layout_width="110dp"
+      android:layout_height="40dp"/>
+    <Button
+      android:onClick="onClick"
+      android:id="@+id/TextDownloadButton"
+      android:text="download"
+      android:layout_width="110dp"
       android:layout_height="40dp"/>
   </LinearLayout>
   <ScrollView

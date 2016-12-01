@@ -43,11 +43,7 @@ public class ReadThread extends Thread {
           totalLangth = Integer.parseInt(strTotalLangth);
           Log.e("MYLOG", totalLangth + " = totalLangth");
         }
-        if (whatItem == 1) {
-          length = mIOStream.getReader().read(readBuffer);
-          post(whatItem, readBuffer, length);
-          length = 0;
-        } else if (whatItem == 2 || !stay) {
+        if ((whatItem == 1 || whatItem == 2) || !stay) {
           stay = false;
           Log.e("MYLOG", "-----------");
           byte[] tempBuffer = new byte[2000];
