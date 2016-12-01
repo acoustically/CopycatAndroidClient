@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.example.acoustically.copycat.ClipBoardActivity;
 import com.example.acoustically.copycat.R;
 import com.example.acoustically.copycat.ShowDataActivity;
+import com.example.acoustically.copycat.ShowImageActivity;
 
 /**
  * Created by acoustically on 16. 11. 28.
@@ -48,7 +49,6 @@ public class StringData implements Data{
       public void onClick(View view) {
         Intent intent = new Intent(mContext, ShowDataActivity.class);
         intent.putExtra("StringData", mString);
-        intent.putExtra("ImageData", (Bitmap)null);
         mContext.startActivity(intent);
       }
     });
