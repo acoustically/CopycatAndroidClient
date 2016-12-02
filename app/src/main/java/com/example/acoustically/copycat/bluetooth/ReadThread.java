@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
@@ -75,13 +76,5 @@ public class ReadThread extends Thread {
     msg.arg1 = length;
     handler.sendMessage(msg);
     Log.e("MYLOG", "Sended to handler");
-  }
-  private void test(byte[] temp, int length) {
-    int count = 0;
-    Log.e("MYLOG", "-----------");
-    for (int i = 0; i < length; i+=100) {
-      Log.e("MYLOG", temp[i] + " " + count++);
-    }
-    Log.e("MYLOG", "-----------");
   }
 }

@@ -3,6 +3,7 @@ package com.example.acoustically.copycat;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -11,6 +12,7 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.example.acoustically.copycat.bluetooth.ReadThread;
@@ -19,15 +21,13 @@ import com.example.acoustically.copycat.data.Data;
 import com.example.acoustically.copycat.data.ImageData;
 import com.example.acoustically.copycat.data.StringData;
 
-import java.io.FileOutputStream;
-import java.io.OutputStream;
-
 
 public class ClipBoardActivity extends AppCompatActivity {
   private Context mContext = this;
   private int countView = 0;
   private LinearLayout layout;
   private ReadThread readThread;
+  private Button mGetButton;
   private Handler readHandler = new Handler() {
     @Override
     public void handleMessage(Message msg) {
@@ -37,11 +37,11 @@ public class ClipBoardActivity extends AppCompatActivity {
       }
       if(msg.what == ReadThread.STRING_DATA) {
         data = new StringData(byteToString(msg), layout, mContext);
-        buildView(data);
-      } else if (msg.what == ReadThread.BITMAP_DATA) {
+      } else {
         data = new ImageData(byteToBitmap(msg), layout, mContext);
-        buildView(data);
       }
+      buildView(data);
+      setButtonEnavle(true);
     }
     private String byteToString(Message msg) {
       return new String((byte[])msg.obj, 0, msg.arg1);
@@ -57,6 +57,8 @@ public class ClipBoardActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_clip_board);
+    mGetButton = (Button)findViewById(R.id.PASTE);
+    setButtonEnavle(true);
     readThread = new ReadThread(readHandler);
     readThread.start();
   }
@@ -65,9 +67,20 @@ public class ClipBoardActivity extends AppCompatActivity {
     if (view.getId() == R.id.PASTE) {
       WriteThread writeThread = new WriteThread();
       writeThread.start();
+      setButtonEnavle(false);
     }
   }
-
+  private void setButtonEnavle(boolean enavle) {
+    if (enavle) {
+      mGetButton.setText("get");
+      mGetButton.setTextColor(Color.rgb(0,0,0));
+      mGetButton.setEnabled(true);
+    } else {
+      mGetButton.setText("copying");
+      mGetButton.setTextColor(Color.rgb(155,155,155));
+      mGetButton.setEnabled(false);
+    }
+  }
   public LinearLayout buildLayout() {
     final int height = (int) TypedValue.applyDimension(
       TypedValue.COMPLEX_UNIT_DIP, 150, getResources().getDisplayMetrics());
@@ -86,4 +99,6 @@ public class ClipBoardActivity extends AppCompatActivity {
     countView++;
     data.showDataInView();
   }
+
+
 }
