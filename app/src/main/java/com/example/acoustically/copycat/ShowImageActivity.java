@@ -33,14 +33,18 @@ import static android.R.attr.name;
 
 public class ShowImageActivity extends AppCompatActivity {
   private Bitmap mBitmapData;
+  private String mFilePath;
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_show_image);
     Intent intent = getIntent();
-    byte[] imageByteData = intent.getByteArrayExtra("ImageData");
-    mBitmapData = BitmapFactory.decodeByteArray(imageByteData, 0, imageByteData.length);
+    mFilePath = intent.getStringExtra("ImageName");
+    mBitmapData = fileToBitmap(mFilePath);
     buildImageView(mBitmapData);
+  }
+  private Bitmap fileToBitmap(String filePath) {
+    return BitmapFactory.decodeFile(filePath);
   }
   private void buildImageView(Bitmap bitmap) {
     LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
@@ -53,13 +57,17 @@ public class ShowImageActivity extends AppCompatActivity {
     imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
     LinearLayout layout = (LinearLayout)findViewById(R.id.TextDataView);
     layout.addView(imageView);
+    deleteFileToPath(mFilePath);
   }
-
   public void onClick(View view) {
     if(view.getId() == R.id.ImageCopyButton) {
       creatFileWithBitmap();
       Toast.makeText(this, "Image Download", Toast.LENGTH_LONG).show();
     }
+  }
+  private void deleteFileToPath(String mFilePath) {
+    File file = new File(mFilePath);
+    file.delete();
   }
   private void creatFileWithBitmap() {
     String storage = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Download/";

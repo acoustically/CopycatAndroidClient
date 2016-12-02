@@ -3,6 +3,9 @@ package com.example.acoustically.copycat.data;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Environment;
+import android.os.Message;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
@@ -15,6 +18,9 @@ import com.example.acoustically.copycat.ShowDataActivity;
 import com.example.acoustically.copycat.ShowImageActivity;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 
 /**
  * Created by acoustically on 16. 11. 28.
@@ -25,14 +31,14 @@ public class ImageData implements Data{
   private LinearLayout mLayout;
   private Context mContext;
   private ImageView mImageView;
+  private int fileNum = 0;
 
-  public ImageData(Bitmap mBitmap, LinearLayout mLayout, Context mContext) {
-    this.mBitmap = mBitmap;
+  public ImageData(Bitmap bitmap, LinearLayout mLayout, Context mContext) {
     this.mLayout = mLayout;
     this.mContext = mContext;
     mImageView = new ImageView(mContext);
+    mBitmap = bitmap;
   }
-
   @Override
   public void showDataInView() {
     Log.e("MYLOG", mBitmap + "");
@@ -48,12 +54,27 @@ public class ImageData implements Data{
     mImageView.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
+        String path = makeImageFile(mBitmap);
         Intent intent = new Intent(mContext, ShowImageActivity.class);
-        intent.putExtra("ImageData", bitmapToBytes(mBitmap));
+        intent.putExtra("ImageName", path);
         mContext.startActivity(intent);
       }
     });
     mLayout.addView(mImageView);
+  }
+  private String makeImageFile(Bitmap bitmap) {
+    String file_name = "/"+ fileNum + ".png";
+    File file = new File(mContext.getCacheDir() + file_name);
+    try {
+      FileOutputStream outputStream = new FileOutputStream(file);
+      bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
+      outputStream.close();
+    } catch (FileNotFoundException e) {
+      Log.e("MYLOG", "File is not exist");
+    } catch (Exception e ){
+      Log.e("MYLOG", "IO Exception");
+    }
+    return file.getPath();
   }
   private byte[] bitmapToBytes(Bitmap bitmap) {
     ByteArrayOutputStream stream = new ByteArrayOutputStream();

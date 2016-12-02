@@ -51,8 +51,6 @@ public class ClipBoardActivity extends AppCompatActivity {
       Log.e("MYLOG", (bitmap + ""));
       return bitmap;
     }
-    private void byteToFIle(Bitmap bitmap) {
-    }
   };
 
   @Override

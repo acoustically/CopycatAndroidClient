@@ -21,7 +21,10 @@ public class MainActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
-    getPermission();
+    getPermission(Manifest.permission.ACCESS_FINE_LOCATION)
+      .getPermission(Manifest.permission.BLUETOOTH)
+      .getPermission(Manifest.permission.BLUETOOTH_ADMIN)
+      .getPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
     mBluetoothCommunication = new SocketConnect("SocketConnect");
     mBluetoothConnect = new BluetoothConnection(this, mBluetoothCommunication);
   }
@@ -31,11 +34,12 @@ public class MainActivity extends AppCompatActivity {
     mBluetoothConnect.resultBluetoothOn(requestCode, resultCode);
   }
 
-  private void getPermission() {
-    int permission = checkSelfPermission(Manifest.permission.BLUETOOTH);
-    if (permission == PackageManager.PERMISSION_DENIED) {
-      requestPermissions(new String[]{Manifest.permission.BLUETOOTH, Manifest.permission.BLUETOOTH_ADMIN}, 1);
+  private MainActivity getPermission(String permission) {
+    int currentPermission = checkSelfPermission(permission);
+    if (currentPermission == PackageManager.PERMISSION_DENIED) {
+      requestPermissions(new String[]{permission}, 1);
     }
+    return this;
   }
 
   public void onClick(View view) {
