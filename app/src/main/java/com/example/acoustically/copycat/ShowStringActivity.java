@@ -3,26 +3,22 @@ package com.example.acoustically.copycat;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.media.Image;
+import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class ShowDataActivity extends AppCompatActivity {
+public class ShowStringActivity extends AppCompatActivity {
   String mStringData;
 
   @Override

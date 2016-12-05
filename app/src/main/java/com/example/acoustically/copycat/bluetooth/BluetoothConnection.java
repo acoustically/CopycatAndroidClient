@@ -4,15 +4,13 @@ import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.IntentFilter;
+import android.content.*;
 import android.util.Log;
 import android.widget.Toast;
-
 import com.example.acoustically.copycat.MainActivity;
+import com.example.acoustically.copycat.bluetooth.socket.connection.OnSocketAvailableListener;
+import com.example.acoustically.copycat.bluetooth.socket.connection.SocketConnection;
+import com.example.acoustically.copycat.bluetooth.socket.connection.SocketIOStream;
 
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -26,7 +24,7 @@ import java.util.UUID;
 public class BluetoothConnection {
   final static UUID SERIAL_PORT_SERVICE_UUID
     = UUID.fromString("00001101-0000-1000-8000-00805f9b34fb");
-  private SocketConnect mScoketConnect;
+  private SocketConnection mScoketConnect;
   private BluetoothAdapter mAdapter;
   private MainActivity mActivity;
   private List<String> mBluetoothList = new LinkedList<String>();
@@ -36,16 +34,16 @@ public class BluetoothConnection {
     public void onReceive(Context context, Intent intent) {
       if (intent.getAction() == BluetoothDevice.ACTION_FOUND) {
         BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-        Log.e("MYLOG", "device is searched" + " - " + device.getAddress());
+        Log.d("MYLOG", "device is searched" + " - " + device.getAddress());
         addBluetoothListNonRepeat(device);
       }
     }
   };
 
-  public BluetoothConnection(MainActivity mainActivity, SocketConnect communication) {
+  public BluetoothConnection(MainActivity mainActivity, SocketConnection socketConnect) {
     mActivity = mainActivity;
     mAdapter = BluetoothAdapter.getDefaultAdapter();
-    mScoketConnect = communication;
+    mScoketConnect = socketConnect;
     mActivity.registerReceiver(mBroadcastReceiver, new IntentFilter( BluetoothDevice.ACTION_FOUND ));
     setDiscoverable();
   }
@@ -74,8 +72,8 @@ public class BluetoothConnection {
     builder.setItems(bluetoothList, new DialogInterface.OnClickListener() {
       @Override
       public void onClick(DialogInterface dialogInterface, int i) {
-        Log.e("MYLOG", mAdapter.getRemoteDevice(mBluetoothAddressList.get(i)).getAddress());
-        Log.e("MYLOG", mAdapter.getRemoteDevice(mBluetoothAddressList.get(i)).getName());
+        Log.d("MYLOG", mAdapter.getRemoteDevice(mBluetoothAddressList.get(i)).getAddress());
+        Log.d("MYLOG", mAdapter.getRemoteDevice(mBluetoothAddressList.get(i)).getName());
         mAdapter.cancelDiscovery();
         try {
           mScoketConnect.setSocket(getSocket(mAdapter.getRemoteDevice(mBluetoothAddressList.get(i))));
@@ -91,7 +89,7 @@ public class BluetoothConnection {
 
   private void bluetoothOn() {
     if(mAdapter.isEnabled()) {
-      Log.d("MYLOG", "bluetooth inEnble");
+      Log.d("MYLOG", "bluetooth is Enble");
     } else {
       Intent intent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
       mActivity.startActivityForResult(intent, MainActivity.BLUETOOTH_ON);
@@ -129,7 +127,7 @@ public class BluetoothConnection {
   }
 
   public BluetoothSocket getSocket(BluetoothDevice device) throws Exception{
-    Log.e("MYLOG", device.getName() + " " + device.getAddress());
+    Log.d("MYLOG", device.getName() + " " + device.getAddress());
     return device.createInsecureRfcommSocketToServiceRecord(SERIAL_PORT_SERVICE_UUID);
   }
 

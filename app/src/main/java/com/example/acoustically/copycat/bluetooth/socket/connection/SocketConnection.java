@@ -1,4 +1,4 @@
-package com.example.acoustically.copycat.bluetooth;
+package com.example.acoustically.copycat.bluetooth.socket.connection;
 
 import android.bluetooth.BluetoothSocket;
 import android.os.Message;
@@ -7,12 +7,12 @@ import android.util.Log;
 /**
  * Created by acoustically on 16. 11. 20.
  */
-public class SocketConnect extends Thread{
+public class SocketConnection extends Thread{
   private BluetoothSocket mSocket;
   private OnSocketAvailableListener mSocketListener;
   private SocketIOStream mSocketIOStream;
 
-  public SocketConnect(String name) {
+  public SocketConnection(String name) {
     super(name);
   }
   public void setSocket(BluetoothSocket socket) {
@@ -24,7 +24,7 @@ public class SocketConnect extends Thread{
     try {
       mSocket.connect();
       if(mSocket.isConnected()) {
-        Log.e("MYLOG", "socket is openned");
+        Log.d("MYLOG", "socket is openned");
         mSocketListener.sendMessage(Message.obtain());
         mSocketIOStream.setIoSteam(mSocket);
       }

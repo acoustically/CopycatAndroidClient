@@ -1,10 +1,9 @@
-package com.example.acoustically.copycat.bluetooth;
+package com.example.acoustically.copycat.bluetooth.socket.connection;
 
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.widget.Toast;
-
 import com.example.acoustically.copycat.ClipBoardActivity;
 import com.example.acoustically.copycat.MainActivity;
 
@@ -18,7 +17,7 @@ public class OnSocketAvailableListener extends Handler{
     mActivity = activity;
   }
 
-  public void startSelectModeActivity() {
+  public void startClipboardActivity() {
     Intent intent = new Intent(mActivity, ClipBoardActivity.class);
     mActivity.startActivity(intent);
   }
@@ -33,6 +32,6 @@ public class OnSocketAvailableListener extends Handler{
   @Override
   public void handleMessage(Message msg) {
     showToast(true);
-    startSelectModeActivity();
+    startClipboardActivity();
   }
 }

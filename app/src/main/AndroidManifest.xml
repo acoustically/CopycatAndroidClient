@@ -23,7 +23,7 @@
     </activity>
     <activity android:name=".ClipBoardActivity">
     </activity>
-    <activity android:name=".ShowDataActivity">
+    <activity android:name=".ShowStringActivity">
     </activity>
     <activity android:name=".ShowImageActivity">
     </activity>

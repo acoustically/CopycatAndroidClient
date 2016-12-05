@@ -1,16 +1,8 @@
-package com.example.acoustically.copycat.bluetooth;
+package com.example.acoustically.copycat.bluetooth.socket.connection;
 
-import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Message;
-import android.provider.MediaStore;
-import android.support.v4.app.NotificationCompat;
 import android.util.Log;
-
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-
-import static android.R.attr.bitmap;
 
 /**
  * Created by acoustically on 16. 11. 28.
@@ -37,21 +29,21 @@ public class ReadThread extends Thread {
       try {
         if(stay) {
           whatItem = mIOStream.getReader().read();
-          Log.e("MYLOG", whatItem + " : whatItem");
+          Log.d("MYLOG", whatItem + " : whatItem");
           byte[] strBuffer = new byte[100];
           int strLangth = mIOStream.getReader().read(strBuffer);
           String strTotalLangth = new String(strBuffer, 0, strLangth);
           totalLangth = Integer.parseInt(strTotalLangth);
-          Log.e("MYLOG", totalLangth + " = totalLangth");
+          Log.d("MYLOG", totalLangth + " = totalLangth");
         }
         if ((whatItem == 1 || whatItem == 2) || !stay) {
           stay = false;
-          Log.e("MYLOG", "-----------");
+          Log.d("MYLOG", "-----------");
           byte[] tempBuffer = new byte[2000];
           int tempLength = mIOStream.getReader().read(tempBuffer);
           chargeBuffer(readBuffer, length, tempBuffer, tempLength);
           length += tempLength;
-          Log.e("MYLOG", length + " --> current langth");
+          Log.d("MYLOG", length + " --> current langth");
           if (totalLangth == length) {
             post(whatItem, readBuffer, length);
             stay = true;
@@ -75,6 +67,6 @@ public class ReadThread extends Thread {
     msg.obj = data;
     msg.arg1 = length;
     handler.sendMessage(msg);
-    Log.e("MYLOG", "Sended to handler");
+    Log.d("MYLOG", "Sended to handler");
   }
 }

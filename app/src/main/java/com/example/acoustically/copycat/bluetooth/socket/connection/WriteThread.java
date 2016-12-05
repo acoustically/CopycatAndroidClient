@@ -1,8 +1,6 @@
-package com.example.acoustically.copycat.bluetooth;
+package com.example.acoustically.copycat.bluetooth.socket.connection;
 
 import android.util.Log;
-
-import java.io.ObjectOutputStream;
 
 /**
  * Created by acoustically on 16. 11. 28.

@@ -14,9 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
-
-import com.example.acoustically.copycat.bluetooth.ReadThread;
-import com.example.acoustically.copycat.bluetooth.WriteThread;
+import com.example.acoustically.copycat.bluetooth.socket.connection.ReadThread;
+import com.example.acoustically.copycat.bluetooth.socket.connection.WriteThread;
 import com.example.acoustically.copycat.data.Data;
 import com.example.acoustically.copycat.data.ImageData;
 import com.example.acoustically.copycat.data.StringData;
@@ -31,13 +30,13 @@ public class ClipBoardActivity extends AppCompatActivity {
   private Handler readHandler = new Handler() {
     @Override
     public void handleMessage(Message msg) {
-      Data data;
+      Data data = null;
       if (countView % 2 == 0) {
         layout = buildLayout();
       }
       if(msg.what == ReadThread.STRING_DATA) {
         data = new StringData(byteToString(msg), layout, mContext);
-      } else {
+      } else if (msg.what == ReadThread.BITMAP_DATA) {
         data = new ImageData(byteToBitmap(msg), layout, mContext);
       }
       buildView(data);

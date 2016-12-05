@@ -3,23 +3,16 @@ package com.example.acoustically.copycat.data;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.Environment;
-import android.os.Message;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-
 import com.example.acoustically.copycat.R;
-import com.example.acoustically.copycat.ShowDataActivity;
 import com.example.acoustically.copycat.ShowImageActivity;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
 /**
@@ -41,7 +34,7 @@ public class ImageData implements Data{
   }
   @Override
   public void showDataInView() {
-    Log.e("MYLOG", mBitmap + "");
+    Log.d("MYLOG", mBitmap + "");
     final int width = (int) TypedValue.applyDimension(
       TypedValue.COMPLEX_UNIT_DIP, 150, mContext.getResources().getDisplayMetrics());
     LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
@@ -69,16 +62,9 @@ public class ImageData implements Data{
       FileOutputStream outputStream = new FileOutputStream(file);
       bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
       outputStream.close();
-    } catch (FileNotFoundException e) {
-      Log.e("MYLOG", "File is not exist");
     } catch (Exception e ){
       Log.e("MYLOG", "IO Exception");
     }
     return file.getPath();
-  }
-  private byte[] bitmapToBytes(Bitmap bitmap) {
-    ByteArrayOutputStream stream = new ByteArrayOutputStream();
-    bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-    return stream.toByteArray();
   }
 }
