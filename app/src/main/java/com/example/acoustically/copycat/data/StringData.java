@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.example.acoustically.copycat.R;

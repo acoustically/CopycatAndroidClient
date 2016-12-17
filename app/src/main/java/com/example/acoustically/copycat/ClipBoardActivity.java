@@ -14,12 +14,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+
 import com.example.acoustically.copycat.bluetooth.socket.connection.ReadThread;
 import com.example.acoustically.copycat.bluetooth.socket.connection.WriteThread;
 import com.example.acoustically.copycat.data.Data;
 import com.example.acoustically.copycat.data.ImageData;
 import com.example.acoustically.copycat.data.StringData;
-
 
 public class ClipBoardActivity extends AppCompatActivity {
   private Context mContext = this;
@@ -67,6 +67,10 @@ public class ClipBoardActivity extends AppCompatActivity {
       WriteThread writeThread = new WriteThread();
       writeThread.start();
       setButtonEnavle(false);
+    } else if (view.getId() == R.id.DeleteAllView) {
+      Log.e("asgagsa","asgsagsasg");
+      ((LinearLayout)findViewById(R.id.PASTE_CONTENTS)).removeAllViews();
+      countView = 0;
     }
   }
   private void setButtonEnavle(boolean enavle) {
@@ -98,6 +102,4 @@ public class ClipBoardActivity extends AppCompatActivity {
     countView++;
     data.showDataInView();
   }
-
-
 }
